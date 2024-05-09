@@ -1,0 +1,35 @@
+---
+package_list_node:
+  - name: gcc
+    state: present
+  - name: zip
+    state: present
+file_type_node:
+  - ensure_type: directory
+    path: /redhat1
+    owner: root
+    group: root
+  - ensure_type: directory
+    path: /redhat2
+    owner: root
+    group: root
+  - ensure_type: directory
+    path: /redhat3
+    owner: root
+    group: root
+cron_allow_user_node: |
+  redhatoracleuser
+  redhatakhil2
+sudorules_node: |
+  %admin_user ALL = (serviceaccount) ALL
+  %admin_user ALL = /bin/su - serviceaccount
+  %admin_user ALL = (akhil) ALL
+  %admin_user ALL = /bin/su - akhil
+fstab_node:
+  - filesystem: /dev/mapper/rhel-root
+    opts: "/                       xfs     defaults        0 0"
+  - filesystem: /dev/mapper/rhel-app
+    opts: "/app                       xfs     defaults        0 0"
+  - filesystem: /dev/mapper/rhel-app2
+    opts: "/app2                       xfs     defaults        0 0"
+...

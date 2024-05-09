@@ -1,0 +1,27 @@
+---
+package_list_node:
+  - name: gcc
+    state: present
+  - name: zip 
+    state: present
+file_type_node:
+  - ensure_type: directory
+    path: /app
+    owner: root
+    group: root
+  - ensure_type: directory
+    path: /app2
+    owner: root
+    group: root
+cron_allow_user_node: |
+  oracleuser
+  akhil
+  ubuntuuser
+sudorules_node: |
+  %admin_user ALL= (serviceaccount) ALL
+  %admin_user ALL = /bin/su - serviceaccount
+fstab_node:
+  #  - filesystem: /dev/mapper/rhel-app
+  #    opts: "/app                       xfs     defaults        0 0"
+
+...

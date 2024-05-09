@@ -1,0 +1,26 @@
+---
+- name: Apply ansible configuration 
+  hosts: "{{ target_hosts | default('all') }}"
+  become: true
+  vars_prompt:
+    - name: "target_hosts"
+      prompt: "Please enter target hosts (enter 'all' or leave blank to target all hosts) "
+      private: no
+      default: "all"
+  tasks:
+  
+    - name: Load server-specific variables
+      include_vars:
+        file: vars/{{ inventory_hostname }}.yaml
+
+    - name: Execute ansible configguration enforcement role
+      include_role:
+        name: ansible_config
+
+    - name: Print out the inventory hostname and actual hostname
+      debug:
+        msg:
+          - "Inventory hostname: {{ inventory_hostname }}"
+          - "Actual hostname: {{ ansible_hostname }}"
+  ignore_errors: yes
+...

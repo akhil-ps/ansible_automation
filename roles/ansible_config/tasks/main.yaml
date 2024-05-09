@@ -1,0 +1,51 @@
+---
+- name: Install required packages
+  ansible.builtin.package:
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  loop: "{{ package_list_node }}"
+  when: package_list_node is defined
+
+- name: Ensure file and  directories exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: "{{ item.ensure_type }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  loop: "{{ file_type_node }}"
+  when: file_type_node is defined
+
+- name: Configure cron.allow
+  ansible.builtin.lineinfile:
+    path: /etc/cron.allow
+    line: "{{ item }}"
+    state: present
+    create: yes
+  with_items: "{{ cron_allow_user_node.split('\n') }}"
+  when: cron_allow_user_node is defined and item|length > 0
+
+- name: Check if filesystem is already in fstab
+  command: grep -q "^{{ item.filesystem }}" /etc/fstab
+  register: grep_output
+  failed_when: false
+  changed_when: false
+  with_items: "{{ fstab_node }}"
+  when: fstab_node is defined
+
+- name: Add filesystem to fstab if it doesn't exist
+  lineinfile:
+    path: /etc/fstab
+    line: "{{ item.item.filesystem }} {{ item.item.opts }}"
+    state: present
+  when: fstab_node is defined and item.rc != 0
+  with_items: "{{ grep_output.results }}"
+
+- name: Add sudo rule to sudoers if it doesn't exist
+  lineinfile:
+    path: /etc/sudoers
+    line: "{{ item }}"
+    state: present
+    validate: 'visudo -cf %s'
+  with_items: "{{ sudorules_node.split('\n') }}"
+  when: sudorules_node is defined  
+...
