@@ -1,12 +1,13 @@
 ---
 - name: Apply ansible configuration 
-  hosts: "{{ target_hosts | default('all') }}"
+  # hosts: "{{ target_hosts | default('all') }}"
+  hosts: all
   become: true
-  vars_prompt:
-    - name: "target_hosts"
-      prompt: "Please enter target hosts (enter 'all' or leave blank to target all hosts) "
-      private: no
-      default: "all"
+    #vars_prompt:
+    #- name: "target_hosts"
+    # prompt: "Please enter target hosts (enter 'all' or leave blank to target all hosts) "
+    # private: no
+    # default: "all"
   tasks:
   
     - name: Load server-specific variables
