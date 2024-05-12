@@ -2,8 +2,8 @@
 - name: Apply ansible configuration
   hosts: "{{ target_hosts | default('all') }}"
   become: true
-    #vars_prompt:
-    #- name: "target_hosts"
+    # vars_prompt:
+    # - name: "target_hosts"
     #  prompt: "Please enter target hosts (enter 'all' or leave blank to target all hosts) "
     #  private: no
     #  default: "all"
@@ -22,4 +22,5 @@
         msg:
           - "Inventory hostname: {{ inventory_hostname }}"
           - "Actual hostname: {{ ansible_hostname }}"
-  ignore_errors: yes
+  ignore_errors: true
+...
