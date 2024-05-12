@@ -21,7 +21,7 @@ sudorules_node: |
   %admin_user ALL= (serviceaccount) ALL
   %admin_user ALL = /bin/su - serviceaccount
 fstab_node:
-  #  - filesystem: /dev/mapper/rhel-app
-  #    opts: "/app                       xfs     defaults        0 0"
+  - filesystem: /dev/mapper/rhel-app
+    opts: "/app                       xfs     defaults        0 0"
 
 ...
