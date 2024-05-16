@@ -1,0 +1,26 @@
+- name: Create AAP Project
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create AAP Project
+      uri:
+        url: "http://192.168.56.105:10445/api/v2/projects/"
+        method: POST
+        headers:
+          Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
+        body_format: json
+        body:
+          name: "{{ project_name }}"
+          scm_type: git
+          scm_url: "{{ scm_repo_url }}"
+          scm_branch: "{{ scm_branch }}"
+          scm_clean: true
+          scm_credential: "{{ scm_credential_id }}"
+          scm_update_on_launch: true
+          organization: "{{ organization_id }}"
+          # Other project settings as needed
+      register: project_result
+
+    - name: Display project creation result
+      debug:
+        var: project_result.json
