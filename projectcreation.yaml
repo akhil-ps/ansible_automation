@@ -4,7 +4,7 @@
   tasks:
     - name: Create AAP Project
       uri:
-        url: "http://192.168.56.105:10445/api/v2/projects/"
+        url: http://192.168.56.105:10445/api/v2/projects/
         method: POST
         headers:
           Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
