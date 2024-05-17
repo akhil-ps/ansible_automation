@@ -53,6 +53,7 @@
           scm_update_on_launch: true
           organization: "{{ organization_id }}"
       register: project_result
+      ignore_errors: true
 
     - name: Display project creation result
       debug:
