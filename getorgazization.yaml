@@ -1,0 +1,24 @@
+
+---
+- name: Get Organization ID
+  hosts: localhost
+  gather_facts: false
+  vars:
+    organization_name: "{{ organization_name }}"  # Use the survey variable
+
+  tasks:
+    - name: Call the API to get organization details
+      uri:
+        url: "https://192.168.56.105:10445/api/v1/organizations/"
+        method: GET
+        headers:
+          Authorization: "Bearer your_api_token"
+      register: api_response
+
+    - name: Extract organization ID
+      set_fact:
+        organization_id: "{{ api_response.json | json_query('results[?name==`' + organization_name + '`].id') | first }}"
+
+    - name: Display organization ID
+      debug:
+        var: organization_id
