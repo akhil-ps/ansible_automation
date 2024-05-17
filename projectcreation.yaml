@@ -22,7 +22,7 @@
       with_items: "{{ api_response.json.results }}"
       when: item.name == organization_name
 
-    - name: Fail if organization_id is not found
+    - name: Fail if organization name not available
       fail:
         msg: "Organization name '{{ organization_name }}' not found"
       when: organization_id is not defined
