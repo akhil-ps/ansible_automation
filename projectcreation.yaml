@@ -47,7 +47,7 @@
           scm_url: "{{ scm_repo_url }}"
           scm_branch: "{{ scm_branch }}"
           scm_clean: true
-          scm_credential: "{{ scm_credential_id }}"
+          credential: "{{ scm_credential_id }}"
           scm_update_on_launch: true
           organization: "{{ organization_id }}"
       register: project_result
