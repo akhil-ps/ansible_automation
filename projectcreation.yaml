@@ -43,6 +43,7 @@
         body_format: json
         body:
           name: "{{ project_name }}"
+          description: "{{ project_description }}"
           scm_type: git
           scm_url: "{{ scm_repo_url }}"
           scm_branch: "{{ scm_branch }}"
