@@ -9,7 +9,7 @@
   tasks:
     - name: Call the API to get organization details
       uri:
-        url: "http://192.168.56.105:10445/api/v1/organizations/"
+        url: "http://192.168.56.105:10445/api/v2/organizations/"
         method: GET
         headers:
           Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
