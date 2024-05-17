@@ -12,7 +12,7 @@
         url: "https://192.168.56.105:10445/api/v1/organizations/"
         method: GET
         headers:
-          Authorization: "Bearer your_api_token"
+          Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
       register: api_response
 
     - name: Extract organization ID
