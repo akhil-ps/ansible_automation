@@ -41,10 +41,10 @@
       with_items: "{{ api_response.json.results }}"
       when: item.name == scm_credential_name
 
-   - name: Fail if SCM Credential name not available
-     fail:
-       msg: "SCM Credential {{ scm_credential_name }} not found."
-     when: scm_credential_id is not defined
+    - name: Fail if SCM Credential name not available
+      fail:
+        msg: "SCM Credential {{ scm_credential_name }} not found."
+      when: scm_credential_id is not defined
 
     - name: Create AAP Project
       uri:
