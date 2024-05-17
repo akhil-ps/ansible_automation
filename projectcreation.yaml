@@ -22,6 +22,11 @@
       with_items: "{{ api_response.json.results }}"
       when: item.name == organization_name
 
+    - name: Fail if organization_id is not found
+      fail:
+        msg: "Organization name '{{ organization_name }}' not found"
+      when: organization_id is not defined
+
     - name: Call the API to get SCM credentials details
       uri:
         url: "{{ base_api_url }}/credentials/"
@@ -35,6 +40,11 @@
         scm_credential_id: "{{ item.id }}"
       with_items: "{{ api_response.json.results }}"
       when: item.name == scm_credential_name
+
+   - name: Fail if SCM Credential ID is not found
+     fail:
+       msg: "SCM Credential '{{ scm_credential_name }}' not found."
+     when: scm_credential_id is not defined
 
     - name: Create AAP Project
       uri:
