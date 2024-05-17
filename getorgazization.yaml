@@ -32,12 +32,12 @@
         method: GET
         headers:
           Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
-      register: api_response
+      register: api_response2
 
     - name: Extract SCM Credential ID
       set_fact:
         scm_credential_id: "{{ item.id }}"
-      with_items: "{{ api_response.json.results }}"
+      with_items: "{{ api_response2.json.results }}"
       when: item.name == scm_credential_name
 
     - name: Display SCM Credential ID
