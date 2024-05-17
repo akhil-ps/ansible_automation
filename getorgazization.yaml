@@ -5,7 +5,7 @@
   gather_facts: false
   vars:
     organization_name: "{{ organization_name }}"  # Use the survey variable
-    scm_credential_id: "{{ scm_credential_id }}"
+    scm_credential_name: "{{ scm_credential_name }}"
 
   tasks:
     - name: Call the API to get organization details
@@ -25,7 +25,7 @@
     - name: Display organization ID
       debug:
         var: organization_id
-  tasks:
+
     - name: Call the API to get SCM credentials details
       uri:
         url: "http://192.168.56.105:10445/api/v2/organizations/"
