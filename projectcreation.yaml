@@ -24,7 +24,7 @@
 
     - name: Fail if organization name not available
       fail:
-        msg: "Organization name '{{ organization_name }}' not found"
+        msg: "Organization name {{ organization_name }} not found"
       when: organization_id is not defined
 
     - name: Call the API to get SCM credentials details
@@ -43,7 +43,7 @@
 
    - name: Fail if SCM Credential ID is not found
      fail:
-       msg: "SCM Credential '{{ scm_credential_name }}' not found."
+       msg: "SCM Credential {{ scm_credential_name }} not found."
      when: scm_credential_id is not defined
 
     - name: Create AAP Project
