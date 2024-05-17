@@ -15,9 +15,6 @@
           Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
       register: api_response
 
-        #- name: Extract organization ID
-        #set_fact:
-        #organization_id: "{{ api_response.json | json_query('results[?name==`' + organization_name + '`].id') | first }}"
     - name: Extract organization ID
       set_fact:
         organization_id: "{{ item.id }}"
@@ -27,3 +24,21 @@
     - name: Display organization ID
       debug:
         var: organization_id
+  tasks:
+    - name: Call the API to get SCM credentials details
+      uri:
+        url: "http://192.168.56.105:10445/api/v2/organizations/"
+        method: GET
+        headers:
+          Authorization: "Bearer E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
+      register: api_response
+
+    - name: Extract SCM Credential ID
+      set_fact:
+        scm_credential_id: "{{ item.id }}"
+      with_items: "{{ api_response.json.results }}"
+      when: item.name == scm_credential_name
+
+    - name: Display SCM Credential ID
+      debug:
+        var: scm_credential_id
