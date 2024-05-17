@@ -5,11 +5,12 @@
     organization_name: "{{ organization_name }}"  
     scm_credential_name: "{{ scm_credential_name }}"
     my_auth_token: "E1XuylA0mX74Pwoe6ntUvGPyf6bzGz"
+    base_api_url: "http://192.168.56.105:10445/api/v2"
 
   tasks:
     - name: Call the API to get organization details
       uri:
-        url: "http://192.168.56.105:10445/api/v2/organizations/"
+        url: "{{ base_api_url }}/organizations/"
         method: GET
         headers:
           Authorization: "Bearer {{ my_auth_token }}"
@@ -23,7 +24,7 @@
 
     - name: Call the API to get SCM credentials details
       uri:
-        url: "http://192.168.56.105:10445/api/v2/credentials/"
+        url: "{{ base_api_url }}/credentials/"
         method: GET
         headers:
           Authorization: "Bearer {{ my_auth_token }}"
@@ -37,7 +38,7 @@
 
     - name: Create AAP Project
       uri:
-        url: "http://192.168.56.105:10445/api/v2/projects/"
+        url: "{{ base_api_url }}/projects/"
         method: POST
         headers:
           Authorization: "Bearer {{ my_auth_token }}"
