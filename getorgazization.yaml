@@ -5,6 +5,7 @@
   gather_facts: false
   vars:
     organization_name: "{{ organization_name }}"  # Use the survey variable
+    scm_credential_id: "{{ scm_credential_id }}"
 
   tasks:
     - name: Call the API to get organization details
