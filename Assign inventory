@@ -1,0 +1,43 @@
+---
+- name: Add Inventory to Job Template
+  hosts: localhost
+  gather_facts: no
+
+  vars:
+    tower_url: "https://your-tower-instance.com"
+    tower_token: "your-tower-token"
+    job_template_name: "My Job Template"
+    inventory_name: "My Inventory"
+
+  tasks:
+  - name: Get job template ID
+    uri:
+      url: "{{ tower_url }}/api/v2/job_templates/"
+      method: GET
+      headers:
+        Authorization: "Bearer {{ tower_token }}"
+      body_format: json
+    register: job_templates
+
+  - name: Get inventory ID
+    uri:
+      url: "{{ tower_url }}/api/v2/inventories/"
+      method: GET
+      headers:
+        Authorization: "Bearer {{ tower_token }}"
+      body_format: json
+    register: inventories
+
+  - name: Add inventory to job template
+    uri:
+      url: "{{ tower_url }}/api/v2/job_templates/{{ job_template_id }}/inventories/"
+      method: POST
+      headers:
+        Authorization: "Bearer {{ tower_token }}"
+      body:
+        inventory: {{ inventory_id }}
+      body_format: json
+      status_code: 201
+    vars:
+      job_template_id: "{{ job_templates.json.results | selectattr('name', 'equalto', job_template_name) | map(attribute='id') | first }}"
+      inventory_id: "{{ inventories.json.results | selectattr('name', 'equalto', inventory_name) | map(attribute='id') | first }}"
